@@ -15,7 +15,8 @@ port=os.environ['RDS_PORT']
 with mysql.connector.connect(host='host',user='user',password='password',db='db'):
 cursor=mydb.cursor(buffered=True)
 
-cursor.execute("CREATE TABLE  if not exits `cart` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`itemid` varchar(255) NOT NULL,`name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`image_url` text,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE))")
+cursor.execute("CREATE TABLE  if not exits `cart` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`itemid` varchar(255) NOT NULL,`name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`image_url` text,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
+cursor.execute("CREATE TABLE if not EXISTS `orders` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`item_name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,`image_url` text,`status` varchar(50) DEFAULT 'pending',`delivery_date` date DEFAULT NULL,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
 
 # def get_db_connection():
 #     conn = mysql.connector.connect(
