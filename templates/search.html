@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'homepage1.html'%}
+    {% block content%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="homepage.css">
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if products %}
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-4">
+                        <div class="card h-100 product-card">
+                            <div class="card-header text-center fw-bold">{{ product['name'] }}</div>
+                            <a href="{{ url_for('product_detail', product_name=product['name'].lower()) }}">
+                                <img src="{{ product['image_url'] }}" class="card-img-top product-image" alt="{{ product['name'] }}">
+                            </a>                            
+                            <div class="card-footer text-center">
+                                <span class="discount-text">
+                                    Up to {{ product['discount'] }}% off
+                                </span><br>
+                                <span class="price-text">₹{{ product['final_price'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center">No products found for your search query: "{{ query }}"</p>
+        {% endif %}
+    </div>
+    {% endblock%}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

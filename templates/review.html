@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% extends 'homepage1.html'%}
+  {% block content%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Product</title>
+    <link rel="stylesheet" href="/static/review.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+</head>
+<body>
+  <div class="review-container">
+    <h3>Rate this Product</h3>
+    <form action="" method="POST">
+        <div class="rating-container">
+            <div class="rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <div class="rating-description" id="rating-description"></div>
+        </div>
+        <script>
+            const stars = document.querySelectorAll('.star');
+            const ratingDescription = document.getElementById('rating-description');
+    
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.getAttribute('data-value');
+                    stars.forEach(s => {
+                        s.classList.remove('selected');
+                    });
+                    for (let i = 0; i < rating; i++) {
+                        stars[i].classList.add('selected');
+                    }
+                    switch (rating) {
+                        case '1':
+                            ratingDescription.textContent = "Very Bad";
+                            ratingDescription.className = "rating-description red";
+                            break;
+                        case '2':
+                            ratingDescription.textContent = "Bad";
+                            ratingDescription.className = "rating-description red";
+                            break;
+                        case '3':
+                            ratingDescription.textContent = "Average";
+                            ratingDescription.className = "rating-description green";
+                            break;
+                        case '4':
+                            ratingDescription.textContent = "Good";
+                            ratingDescription.className = "rating-description green";
+                            break;
+                        case '5':
+                            ratingDescription.textContent = "Excellent";
+                            ratingDescription.className = "rating-description green";
+                            break;
+                    }
+                });
+            });
+        </script>
+        <hr>
+        <div class="form-group">
+            <h3>Review the Product</h3>
+            <textarea name="review" id="review" rows="9" cols="25" required placeholder="Description..." style="width: 100%; height: 150px; padding:5px;"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="title"> 📷</label>
+            <input type="file" name="" id="" placeholder="Upload Image">
+        </div>
+        <center>
+
+            <button type="submit"><a href="{{url_for('thank_you')}}">SUBMIT</a></button>
+        </center>
+    </form>
+    </div>
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Rahul's Company. All rights reserved.</p>
+      <ul class="list">
+        <li class="list1">
+          <a href="#" class="link">Privacy Policy</a>
+        </li>
+        <li class="list2">
+          <a href="#" class="link">Terms of Service</a>
+        </li>
+        <li class="list3">
+          <a href="#" class="link">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  {% endblock %}
+</body>
+</html>

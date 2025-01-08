@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% extends 'homepage1.html'%}
+  {% block content%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h2>{{ product.name }}</h2>
+  <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
+  <div class="button-container">
+    <a href="{{ url_for('add_to_cart', itemid=product.id) }}" class="add-to-cart">
+      <button class="btn">
+          <i class="fa fa-shopping-cart"></i> 🛒 Add to Cart
+      </button>
+  </a>  
+    <button class="wish-button">
+      <a href="{{ url_for('add_to_wishlist', itemid=product.id) }}" class="btn">
+        <i class="fa fa-heart"></i> ❤️ Wish
+    </a>
+    </button>
+    <button class="share-button">
+      
+      <i class="fa fa-share-alt"></i><img src="/static/share (1).png" alt="" style="height: 22px;"> Share
+    </button>
+  </div>
+  <div class="price-container">
+    <span class="discounted-price">₹{{product.price}}</span>
+    <span class="original-price">₹10,500</span>
+    <span class="discount-label">25% off</span>
+  </div>
+  <p class="product-description">
+    These sneakers are the perfect blend of style, comfort, and durability. Designed for everyday wear, they feature a sleek and modern design that pairs well with any casual or athletic outfit. Made with high-quality materials, the shoes provide excellent breathability, ensuring your feet stay cool and fresh all day long. The cushioned insole offers superior comfort, making them ideal for long walks, running errands, or simply lounging in style.
+    The outsole is crafted for superior grip, providing stability and support on various surfaces. These sneakers will keep you moving in comfort and style.
+    <br>
+    <strong>Material:</strong> Premium synthetic leather and breathable mesh<br>
+    <strong>Insole:</strong> Soft, cushioned for added comfort<br>
+    <strong>Outsole:</strong> Slip-resistant rubber for improved traction<br>
+    <strong>Design:</strong> Sleek and minimalistic, available in a variety of colors<br>
+    <strong>Sizes:</strong> Available in all standard sizes, ensuring a perfect fit for everyone
+  </p>  
+  <div class="image">
+    <img src="https://img.freepik.com/premium-psd/sales-template-design_23-2151541603.jpg?w=1800" alt="" style="height: 300px; width: 100%;  object-fit: cover;">
+  </div>  
+  {% endblock%}
+</body>
+</html>
+
