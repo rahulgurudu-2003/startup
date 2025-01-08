@@ -7,15 +7,24 @@ razorpay_client = razorpay.Client(auth=("rzp_test_nKMhhbSQoripGE", "VT8EU3XT7FlL
 app = Flask(__name__)
 app.secret_key = '12345678'
 
+db=os.environ['RDS_DB_NAME']
+user=os.environ['RDS_USERNAME']
+password=os.environ['RDS_PASSWORD']
+host=os.environ['RDS_HOSTNAME']
+port=os.environ['RDS_PORT']
+with mysql.connector.connect(host='host',user='user',password='password',db='db'):
+cursor=mydb.cursor(buffered=True)
 
-def get_db_connection():
-    conn = mysql.connector.connect(
-        host='localhost',  
-        user='root',  
-        password='root', 
-        database='startup'  
-    )
-    return conn
+
+
+# def get_db_connection():
+#     conn = mysql.connector.connect(
+#         host='localhost',  
+#         user='root',  
+#         password='root', 
+#         database='startup'  
+#     )
+#     return conn
 
 
 @app.route('/')
