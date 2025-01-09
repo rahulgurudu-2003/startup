@@ -12,16 +12,15 @@ user=os.environ['RDS_USERNAME']
 password=os.environ['RDS_PASSWORD']
 host=os.environ['RDS_HOSTNAME']
 port=os.environ['RDS_PORT']
-with mysql.connector.connect(host='host',user='user',password='password',db='db'):
-cursor=mydb.cursor(buffered=True)
 
-cursor.execute("CREATE TABLE  if not exits `cart` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`itemid` varchar(255) NOT NULL,`name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`image_url` text,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
-cursor.execute("CREATE TABLE if not EXISTS `orders` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`item_name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,`image_url` text,`status` varchar(50) DEFAULT 'pending',`delivery_date` date DEFAULT NULL,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
-cursor.execute("CREATE TABLE if not `products`(`id` int NOT NULL AUTO_INCREMENT,`name` varchar(100) NOT NULL,`image_url` text,`price` int DEFAULT NULL,PRIMARY KEY (`id`))")
-cursor.execute("CREATE TABLE if not `users`(`id` int NOT NULL AUTO_INCREMENT,`name` varchar(255) NOT NULL,`email` varchar(255) NOT NULL,`password` varchar(255) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`),UNIQUE KEY `email` (`email`))")
-cursor.execute("CREATE TABLE if not `wishlist`(`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`itemid` varchar(255) NOT NULL,`name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`image_url` text,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
-cursor.close()
-mydb.commit()
+with mysql.connector.connect(host='host',user='user',password='password',db='db') as mydb:
+    cursor=mydb.cursor(buffered=True)
+    cursor.execute("CREATE TABLE  if not exits `cart` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`itemid` varchar(255) NOT NULL,`name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`image_url` text,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
+    cursor.execute("CREATE TABLE if not EXISTS `orders` (`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`item_name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,`image_url` text,`status` varchar(50) DEFAULT 'pending',`delivery_date` date DEFAULT NULL,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
+    cursor.execute("CREATE TABLE if not `products`(`id` int NOT NULL AUTO_INCREMENT,`name` varchar(100) NOT NULL,`image_url` text,`price` int DEFAULT NULL,PRIMARY KEY (`id`))")
+    cursor.execute("CREATE TABLE if not `users`(`id` int NOT NULL AUTO_INCREMENT,`name` varchar(255) NOT NULL,`email` varchar(255) NOT NULL,`password` varchar(255) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`),UNIQUE KEY `email` (`email`))")
+    cursor.execute("CREATE TABLE if not `wishlist`(`id` int NOT NULL AUTO_INCREMENT,`user` varchar(255) NOT NULL,`itemid` varchar(255) NOT NULL,`name` varchar(255) NOT NULL,`price` int DEFAULT NULL,`image_url` text,PRIMARY KEY (`id`),KEY `user` (`user`),CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE)")
+    
 
 # def get_db_connection():
 #     conn = mysql.connector.connect(
